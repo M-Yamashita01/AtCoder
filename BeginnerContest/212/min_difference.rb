@@ -5,14 +5,27 @@ bm = gets(chomp: true).split(" ").map(&:to_i)
 n = nm[0]
 m = nm[1]
 
-prev_result = (an[0] - bm[0]).abs
+an.sort!
+bm.sort!
 
-for num_n in 0..n - 1 do
-  for num_m in 0..m - 1 do
-    result = (an[num_n] - bm[num_m]).abs
-    if result < prev_result
-      prev_result = result
-    end
+prev_result = 0
+
+x = 0
+y = 0
+
+while (x < n) && (y < m)
+  result = (an[x] - bm[y]).abs
+
+  if x.zero? && y.zero?
+    prev_result = result
+  elsif result < prev_result
+    prev_result = result
+  end
+
+  if (an[x] - bm[y]) > 0
+    y += 1
+  else
+    x += 1
   end
 end
 
