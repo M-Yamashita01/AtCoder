@@ -13,37 +13,28 @@ y = []
 end
 
 y_prev = 0
+x_prev = 0
+t_prev = 0
 flag = false
 t.each_with_index do |ti, index|
   xi = x[index]
   yi = y[index]
-  flag = false
-  y_prev = y[index - 1] if index > 0
 
-  if (ti + y_prev).even?
-    0.upto(ti + y_prev).each do |i|
-      next if (i % 2).odd?
-
-      flag = true if (xi + yi == i)
-
-      break if flag == true
-    end
-  else
-    1.upto(ti + y_prev).each do |i|
-      next if (i % 2).even?
-
-      flag = true if (xi + yi == i)
-
-      break if flag == true
-    end
-  end
-  if flag == false
-    puts 'No'
+  d = (xi - x_prev).abs + (yi - y_prev).abs
+  dt = ti - t_prev
+  if d > dt || (dt - d).odd?
+    flag = false
     break
+  else
+    flag = true
+    x_prev = xi
+    y_prev = yi
+    t_prev = ti
   end
-
 end
 
-if flag == true
-  puts 'Yes'
+if flag
+  puts "Yes"
+else
+  puts "No"
 end
