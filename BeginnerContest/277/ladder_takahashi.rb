@@ -46,13 +46,14 @@ while stack.length > 0
   step += 1
 
   node = stack.pop
-  searched[node] = false
+  searched[node] = true
 
   next_node = tree[node].select {|node| !searched[node] }
   next_node.each do |node| 
     stack.push(node)
   end
 
+  puts "searched: #{searched}"
   puts "process stack: #{stack}"
   if step == 3
     break
